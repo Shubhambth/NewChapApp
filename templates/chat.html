@@ -8,6 +8,7 @@
     <script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
     <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/ws.js"></script>
 </head>
 <body class="bg-gray-100 h-screen flex items-center justify-center">
     <div id='chat_container' class="bg-white w-full max-w-4xl shadow-lg rounded-lg flex flex-col h-[80vh]">
@@ -32,10 +33,10 @@
 
         <!-- Input Area -->
         <form id='chat_message_form' method="POST"  class="bg-gray-200 px-4 py-3 flex items-center space-x-4" 
-            hx-post="{% url 'chat' %}"
-            hx-target="#chat_messages"
-            hx-swap="beforeend"
-            _="on htmx:afterRequest reset() me">
+            hx-ext="ws"
+            ws-connect="/ws/chatroom/public-chat"
+            ws-send
+            _="on htmx:wsAfterSend reset() me">
             
             {% csrf_token %}
             {{ form.body }}

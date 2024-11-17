@@ -16,8 +16,8 @@
             <div class="flex items-center space-x-4">
                 <img src="https://via.placeholder.com/40" alt="User Avatar" class="w-10 h-10 rounded-full">
                 <div>
-                    <h2 class="text-lg font-bold">Public ChatRoom</h2>
-                    <p id="online-count" class="text-sm text-purple-300">5 Members Online</p>
+                    <h2 class="text-lg font-bold">Public ChatRoom User : {{ user.username }}</h2>
+                    <p id="online-count" class="text-sm text-purple-300">0 Members Online</p>
                 </div>
             </div>
             <a href="{% url 'home' %}" class="block">

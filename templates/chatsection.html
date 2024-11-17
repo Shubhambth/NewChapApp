@@ -1,0 +1,16 @@
+{% if message.author == user %}
+
+            <!-- Received Message -->
+<div class="flex justify-start">
+    <div class="bg-gray-200 text-gray-800 p-4 rounded-lg max-w-xs shadow">
+        <p>{{message.body}}</p>
+    </div>
+</div>
+{% else %}
+            <!-- Sent Message -->
+<div class="flex justify-end">
+    <div class="bg-purple-600 text-white p-4 rounded-lg max-w-xs shadow">
+        <p>{{message.body}}</p>
+    </div>
+</div>
+{% endif %}

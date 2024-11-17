@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Area</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
+    <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
+</head>
+<body class="bg-gray-100 h-screen flex items-center justify-center">
+    <div id='chat_container' class="bg-white w-full max-w-4xl shadow-lg rounded-lg flex flex-col h-[80vh]">
+        <!-- Header -->
+        <div class="flex items-center justify-between bg-purple-600 text-white px-6 py-4 rounded-t-lg">
+            <div class="flex items-center space-x-4">
+                <img src="https://via.placeholder.com/40" alt="User Avatar" class="w-10 h-10 rounded-full">
+                <div>
+                    <h2 class="text-lg font-bold">John Doe</h2>
+                    <p class="text-sm text-purple-200">Online</p>
+                </div>
+            </div>
+            <button class="bg-purple-800 px-4 py-2 rounded-full text-sm hover:bg-purple-900">End Chat</button>
+        </div>
+
+        <!-- Chat Messages -->
+        <div id="chat_messages" class="flex-1 p-6 overflow-y-auto space-y-4 bg-gray-50">
+            {% for message in chat_messages reversed  %}
+            {% include 'chatsection.html'%}
+            {% endfor %}
+        </div>
+
+        <!-- Input Area -->
+        <form id='chat_message_form' method="POST"  class="bg-gray-200 px-4 py-3 flex items-center space-x-4" 
+            hx-post="{% url 'chat' %}"
+            hx-target="#chat_messages"
+            hx-swap="beforeend"
+            _="on htmx:afterRequest reset() me">
+            
+            {% csrf_token %}
+            {{ form.body }}
+            <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700">
+                Send
+            </button>
+        </form>
+        
+    </div>
+    <script>
+        function scrollToBottom(time = 0) {
+            setTimeout(function () {
+                const container = document.getElementById('chat_messages'); // Target the chat messages area
+                container.scrollTop = container.scrollHeight; // Scroll to the bottom
+            }, time);
+        }
+    
+        // Scroll to the latest message on page load
+        scrollToBottom();
+    
+        // Listen for new messages being added via HTMX
+        document.body.addEventListener('htmx:afterRequest', function (event) {
+            if (event.detail.target.id === "chat_messages") {
+                scrollToBottom(100); // Delay to ensure new content is rendered
+            }
+        });
+    </script>
+    
+</body>
+</html>

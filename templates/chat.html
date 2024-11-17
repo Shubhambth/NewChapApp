@@ -8,62 +8,81 @@
     <script src="https://unpkg.com/htmx.org@2.0.2" integrity="sha384-Y7hw+L/jvKeWIRRkqWYfPcvVxHzVzn5REgzbawhxAuQGwX1XWe70vji+VSeHOThJ" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/htmx.org/dist/ext/ws.js"></script>
     <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
-    <script src="https://unpkg.com/htmx.org@1.9.12/dist/ext/ws.js"></script>
 </head>
-<body class="bg-gray-100 h-screen flex items-center justify-center">
-    <div id='chat_container' class="bg-white w-full max-w-4xl shadow-lg rounded-lg flex flex-col h-[80vh]">
+<body class="bg-gradient-to-br from-gray-100 to-purple-200 h-screen flex items-center justify-center">
+    <div id="chat_container" class="bg-white w-full max-w-4xl shadow-lg rounded-lg flex flex-col h-[85vh]">
         <!-- Header -->
-        <div class="flex items-center justify-between bg-purple-600 text-white px-6 py-4 rounded-t-lg">
+        <div class="flex items-center justify-between bg-gradient-to-r from-purple-600 to-indigo-600 text-white px-6 py-4 rounded-t-lg">
             <div class="flex items-center space-x-4">
                 <img src="https://via.placeholder.com/40" alt="User Avatar" class="w-10 h-10 rounded-full">
                 <div>
                     <h2 class="text-lg font-bold">Public ChatRoom</h2>
-                    <p  id="online-count" class="text-sm text-purple-200"></p>
+                    <p id="online-count" class="text-sm text-purple-300">5 Members Online</p>
                 </div>
             </div>
-            <button class="bg-purple-800 px-4 py-2 rounded-full text-sm hover:bg-purple-900">End Chat</button>
+            <a href="{% url 'home' %}" class="block">
+            <button class="bg-purple-800 px-4 py-2 rounded-full text-sm hover:bg-purple-900">
+                End Chat
+            </button>
+        </a>
         </div>
 
         <!-- Chat Messages -->
         <div id="chat_messages" class="flex-1 p-6 overflow-y-auto space-y-4 bg-gray-50">
-            {% for message in chat_messages reversed  %}
-            {% include 'chatsection.html'%}
+            {% for message in chat_messages reversed %}
+            {% include 'chatsection.html' %}
             {% endfor %}
         </div>
 
         <!-- Input Area -->
-        <form id='chat_message_form' method="POST"  class="bg-gray-200 px-4 py-3 flex items-center space-x-4" 
+        <form id="chat_message_form" method="POST" class="bg-gray-200 px-4 py-3 flex items-center space-x-4"
             hx-ext="ws"
             ws-connect="/ws/chatroom/public-chat"
             ws-send
             _="on htmx:wsAfterSend reset() me">
-            
             {% csrf_token %}
-            {{ form.body }}
-            <button type="submit" class="bg-purple-600 text-white px-4 py-2 rounded-full hover:bg-purple-700">
+            <input 
+                type="text" 
+                name="body" 
+                placeholder="Type your message..." 
+                class="flex-1 px-4 py-2 bg-white border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                required>
+            <button type="submit" class="bg-purple-600 text-white px-6 py-2 rounded-full hover:bg-purple-700 focus:ring-2 focus:ring-purple-500 focus:outline-none">
                 Send
             </button>
         </form>
-        
     </div>
+
     <script>
-        function scrollToBottom(time = 0) {
-            setTimeout(function () {
-                const container = document.getElementById('chat_messages'); // Target the chat messages area
-                container.scrollTop = container.scrollHeight; // Scroll to the bottom
-            }, time);
+        // Function to scroll to the bottom of the chat
+        function scrollToBottom(force = false) {
+            const container = document.getElementById('chat_messages');
+
+            // Always scroll to the bottom if 'force' is true
+            if (force || (container.scrollTop + container.clientHeight >= container.scrollHeight - 100)) {
+                container.scrollTop = container.scrollHeight;
+            }
         }
-    
+
         // Scroll to the latest message on page load
-        scrollToBottom();
-    
-        // Listen for new messages being added via HTMX
-        document.body.addEventListener('htmx:afterRequest', function (event) {
+        document.addEventListener("DOMContentLoaded", () => {
+            scrollToBottom(true); // Force scroll on initial load
+        });
+
+        // Listen for updates via HTMX
+        document.body.addEventListener('htmx:afterRequest', (event) => {
             if (event.detail.target.id === "chat_messages") {
-                scrollToBottom(100); // Delay to ensure new content is rendered
+                scrollToBottom(); // Scroll after new messages are added
             }
         });
+
+        // Fallback observer for dynamically added messages
+        const chatContainer = document.getElementById('chat_messages');
+        const observer = new MutationObserver(() => {
+            scrollToBottom(); // Check and scroll when new nodes are added
+        });
+
+        observer.observe(chatContainer, { childList: true, subtree: true });
     </script>
-    
 </body>
 </html>

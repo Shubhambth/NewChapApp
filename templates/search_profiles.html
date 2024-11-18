@@ -40,6 +40,7 @@
                                 />
                                 <div>
                                     <h2 class="text-lg font-semibold">{{ profile.name }}</h2>
+                                    <h3 class="text-sm text-gray-600">@{{ profile.user.username }}</h3>
                                     <p class="text-sm text-gray-600">{{ profile.info|truncatechars:50 }}</p>
                                 </div>
                             </a>

@@ -6,41 +6,58 @@
     <title>User Profile</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-50 font-sans">
+<body class="bg-gradient-to-r from-blue-50 to-indigo-50 font-sans min-h-screen">
 
-    <div class="max-w-2xl mx-auto flex flex-col items-center pt-16 px-4">
+    <!-- Main Profile Section -->
+    <div class="max-w-4xl mx-auto flex flex-col items-center pt-16 px-4">
         <!-- Profile Picture Section -->
-        
+        <div class="relative w-36 h-36 mb-4">
+            <img 
+                src="https://i.ibb.co/MstHgvS/icon.png" 
+                alt="Profile Picture" 
+                class="rounded-full w-full h-full object-cover shadow-lg"
+            >
+            {% if profile.user == user %}
+            {% comment %} <a 
+                href="{% url 'edit-profile' %}" 
+                class="absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600 shadow-md"
+                title="Edit Profile"
+            >
+                ✏️
+            </a> {% endcomment %}
+            {% endif %}
+        </div>
 
         <!-- Profile Details Section -->
         <div class="text-center">
-            <h1 class="text-4xl font-bold text-gray-800 mb-1">{{ profile.user.username }}</h1>
-            <div class="text-gray-600 text-lg mb-4">@{{ profile.name }}</div>
+            <h1 class="text-4xl font-bold text-gray-800 mb-1">{{ profile.name }}</h1>
+            <div class="text-indigo-500 text-lg font-medium">@{{ profile.user.username }}</div>
 
             <!-- Bio Section -->
             {% if profile.info %}
-            <div class="mt-6 text-gray-700 text-base max-w-md mx-auto leading-relaxed break-words">
+            <div class="mt-6 text-gray-700 text-base max-w-md mx-auto leading-relaxed break-words bg-white shadow-lg p-6 rounded-lg">
                 <p>{{ profile.info }}</p>
             </div>
             {% else %}
             <p class="text-gray-500 italic mt-6">No bio available</p>
             {% endif %}
-            {% if profile.user != user %}
-            <a class='Button' href="{% url 'start-chat' profile.user.username %}">Chat With Me</a>
-            {% endif %}
 
-            <!-- Edit Profile Button -->
-            {% comment %} <div class="mt-8">
-                <a href="{% url 'edit_profile' %}" class="px-6 py-2 bg-blue-500 text-white rounded-md shadow hover:bg-blue-600 transition">
-                    Edit Profile
-                </a>
-            </div> {% endcomment %}
+            <!-- Chat Button -->
+            {% if profile.user != user %}
+            <a 
+                href="{% url 'start-chat' profile.user.username %}" 
+                class="mt-6 inline-block bg-blue-500 text-white px-6 py-2 rounded-md shadow-md hover:bg-blue-600 transition"
+            >
+                Chat With Me
+            </a>
+            {% endif %}
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white text-center py-6 mt-12">
-        <p>&copy; 2024 Your Company Name. All rights reserved.</p>
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white text-center py-8 mt-12">
+        <p class="text-sm">&copy; 2024 Your Company Name. All rights reserved.</p>
+        
     </footer>
 
 </body>

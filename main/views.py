@@ -53,7 +53,11 @@ def find_user(request,username):
         
         profile = request.user.profile
     
-    return render(request, 'profile.html', {'profile':profile})
+    return render(request, 'profile.html', {'profile':profile}) 
+
+
+def dashboard(request):
+   return render(request,'dashbord.html')
     
    
 

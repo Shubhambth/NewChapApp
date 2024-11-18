@@ -28,6 +28,22 @@
                     <li><a href="#features" class="hover:text-yellow-300">Features</a></li>
                     <li><a href="#pricing" class="hover:text-yellow-300">Pricing</a></li>
                     <li><a href="#contact" class="hover:text-yellow-300">Contact</a></li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'dashbord' %}" class="block">
+                            <button class="bg-yellow-300 text-purple-800 px-4 py-2 rounded-full hover:bg-yellow-400">
+                                Dashboard
+                            </button>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'logout' %}" class="block">
+                            <button class="bg-yellow-300 text-purple-800 px-4 py-2 rounded-full hover:bg-yellow-400">
+                                Logout
+                            </button>
+                        </a>
+                    </li>    
+                    {% else %}
                     <li>
                         <a href="{% url 'register' %}" class="block">
                             <button class="bg-yellow-300 text-purple-800 px-4 py-2 rounded-full hover:bg-yellow-400">
@@ -42,6 +58,7 @@
                             </button>
                         </a>
                     </li>
+                    {% endif %}
                 </ul>
             </div>
         </div>
@@ -56,6 +73,18 @@
         </nav>
 
         <div class="hidden sm:flex space-x-4">
+            {% if user.is_authenticated %}
+            <a href="{% url 'dashbord' %}" class="block">
+                <button class="bg-yellow-300 text-purple-800 px-4 py-2 rounded-full hover:bg-yellow-400">
+                    Dashboard
+                </button>
+            </a>
+            <a href="{% url 'logout' %}" class="block">
+                <button class="bg-yellow-300 text-purple-800 px-4 py-2 rounded-full hover:bg-yellow-400">
+                    Logout
+                </button>
+            </a>
+            {% else %}
             <a href="{% url 'register' %}" class="block">
                 <button class="bg-yellow-300 text-purple-800 px-4 py-2 rounded-full hover:bg-yellow-400">
                     Sign Up
@@ -66,6 +95,7 @@
                     Login
                 </button>
             </a>
+            {% endif %}
         </div>
     </header>
 

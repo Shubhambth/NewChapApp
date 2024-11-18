@@ -58,6 +58,11 @@ def find_user(request,username):
 
 def dashboard(request):
    return render(request,'dashbord.html')
+
+
+def user_logout(request):
+  auth.logout(request)
+  return redirect('home')
     
    
 

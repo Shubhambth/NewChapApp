@@ -15,8 +15,8 @@ SECRET_KEY = 'django-insecure-wa*##af!_d0#bu$t7nnnxmavxg40ct)ttd^8sz&bf@_+k2)r^4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://chatapp-kuu3.onrender.com"]
-CSRF_TRUSTED_ORIGINS = ["https://chatapp-kuu3.onrender.com"]
+ALLOWED_HOSTS = ["https://chatapp-dri3.onrender.com"]
+CSRF_TRUSTED_ORIGINS = ["https://chatapp-dri3.onrender.com"]
 
 
 # Application definition

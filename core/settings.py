@@ -16,6 +16,7 @@ SECRET_KEY = 'django-insecure-wa*##af!_d0#bu$t7nnnxmavxg40ct)ttd^8sz&bf@_+k2)r^4
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ["https://*.pike.replit.dev"]
 
 
 # Application definition
@@ -63,31 +64,45 @@ TEMPLATES = [
 # WSGI_APPLICATION = 'core.wsgi.application'
 ASGI_APPLICATION = 'core.asgi.application'
 
-# CHANNEL_LAYERS = {
-#     'default' : {
-#         "BACKEND" : "channels.layers.InMemoryChannelLayer",
-#     }
-# }
-
-
 CHANNEL_LAYERS = {
-    "default": {
-        "BACKEND": "channels_redis.core.RedisChannelLayer",
-        "CONFIG": {
-            "hosts": [('redis://default:MkogOmzUBscWueDTVKKqaychfmSlvlXT@junction.proxy.rlwy.net:41319')],
-        },
-    },
+    'default' : {
+        "BACKEND" : "channels.layers.InMemoryChannelLayer",
+    }
 }
+
+
+# CHANNEL_LAYERS = {
+#     "default": {
+#         "BACKEND": "channels_redis.core.RedisChannelLayer",
+#         "CONFIG": {
+#             "hosts": [('redis://default:CRDvgulVPeHEaaMPADmYbMFKOYdBXOvU@junction.proxy.rlwy.net:58824')],
+#         },
+#     },
+# }
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+# postgresql://postgres:OOPwGYrYnxhqAUhdHkFuymhqqQAfhcsX@autorack.proxy.rlwy.net:40789/railway
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME':'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'OOPwGYrYnxhqAUhdHkFuymhqqQAfhcsX',
+        'HOST': 'autorack.proxy.rlwy.net',
+        'PORT': '40789',
     }
 }
+
+
 
 
 # Password validation

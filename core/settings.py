@@ -1,10 +1,7 @@
-
-
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -15,9 +12,8 @@ SECRET_KEY = 'django-insecure-wa*##af!_d0#bu$t7nnnxmavxg40ct)ttd^8sz&bf@_+k2)r^4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["https://chatapp-dri3.onrender.com"]
-CSRF_TRUSTED_ORIGINS = ["https://chatapp-dri3.onrender.com"]
-
+ALLOWED_HOSTS = ["https://chatapp-dri3.onrender.com/"]
+CSRF_TRUSTED_ORIGINS = ["https://chatapp-dri3.onrender.com/"]
 
 # Application definition
 
@@ -48,7 +44,7 @@ ROOT_URLCONF = 'core.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/'templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,11 +61,10 @@ TEMPLATES = [
 ASGI_APPLICATION = 'core.asgi.application'
 
 CHANNEL_LAYERS = {
-    'default' : {
-        "BACKEND" : "channels.layers.InMemoryChannelLayer",
+    'default': {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
     }
 }
-
 
 # CHANNEL_LAYERS = {
 #     "default": {
@@ -94,7 +89,7 @@ CHANNEL_LAYERS = {
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME':'railway',
+        'NAME': 'railway',
         'USER': 'postgres',
         'PASSWORD': 'OOPwGYrYnxhqAUhdHkFuymhqqQAfhcsX',
         'HOST': 'autorack.proxy.rlwy.net',
@@ -102,27 +97,27 @@ DATABASES = {
     }
 }
 
-
-
-
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.MinimumLengthValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.CommonPasswordValidator',
     },
     {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+        'NAME':
+        'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
@@ -134,7 +129,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/

@@ -94,7 +94,7 @@ def create_profile(request):
             profile = form.save(commit=False)
             profile.user = request.user  # Associate profile with the logged-in user
             profile.save()
-            return redirect('home', username=request.user.username)
+            return redirect('home')
     else:
         form = ProfileForm()
 

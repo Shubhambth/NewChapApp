@@ -60,20 +60,23 @@ TEMPLATES = [
 # WSGI_APPLICATION = 'core.wsgi.application'
 ASGI_APPLICATION = 'core.asgi.application'
 
+# CHANNEL_LAYERS = {
+#     'default': {
+#         "BACKEND": "channels.layers.InMemoryChannelLayer",
+#     }
+# }
+
 CHANNEL_LAYERS = {
-    'default': {
-        "BACKEND": "channels.layers.InMemoryChannelLayer",
-    }
+    "default": {
+        "BACKEND": "channels_redis.core.RedisChannelLayer",
+        "CONFIG": {
+            "hosts": [
+                'redis://red-ct04n38gph6c738grtfg:6379'
+            ],
+        },
+    },
 }
 
-# CHANNEL_LAYERS = {
-#     "default": {
-#         "BACKEND": "channels_redis.core.RedisChannelLayer",
-#         "CONFIG": {
-#             "hosts": [('redis://default:CRDvgulVPeHEaaMPADmYbMFKOYdBXOvU@junction.proxy.rlwy.net:58824')],
-#         },
-#     },
-# }
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases

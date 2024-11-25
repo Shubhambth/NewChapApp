@@ -1,16 +1,17 @@
 {% if message.author == user %}
-
-            <!-- Received Message -->
-<div class="flex justify-start">
-    <div class="bg-gray-200 text-gray-800 p-4 rounded-lg max-w-xs shadow">
-        <p>{{message.body}}</p>
+    <!-- Received Message -->
+    <div class="flex justify-start items-center space-x-2">
+        <div class="bg-gray-200 text-gray-800 p-4 rounded-lg max-w-xs shadow">
+            <p>{{ message.body }}</p>
+        </div>
+        <span class="text-sm text-gray-500">{{ user.username }}</span>
     </div>
-</div>
 {% else %}
-            <!-- Sent Message -->
-<div class="flex justify-end">
-    <div class="bg-purple-600 text-white p-4 rounded-lg max-w-xs shadow">
-        <p>{{message.body}}</p>
+    <!-- Sent Message -->
+    <div class="flex justify-end items-center space-x-2">
+        <span class="text-sm text-gray-500">{{ message.author.username }}</span>
+        <div class="bg-purple-600 text-white p-4 rounded-lg max-w-xs shadow">
+            <p>{{ message.body }}</p>
+        </div>
     </div>
-</div>
 {% endif %}

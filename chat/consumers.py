@@ -66,7 +66,7 @@ class ChatroomConsumer(WebsocketConsumer):
         self.send(text_data=html)
 
     def update_online_count(self):
-        online_count = self.chatrooom.users_online.count() - 1
+        online_count = self.chatrooom.users_online.count() 
 
         event = {
             'type' : 'online_count_handler',
